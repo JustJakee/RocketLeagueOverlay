@@ -5,31 +5,129 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <style>
-        .scorebug {
-            position: absolute;
-            top: 15px;
-            left: 30px;
+        @import url('https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&display=swap');
+
+        .player-card {
+            border: 1px solid black;
+            height: 150px;
+            width: 400px;
+        }
+
+        .player-card-heading {
+            font-family: 'Coda Caption', sans-serif;
+            height: 30%;
+            max-width: 100%;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .player-card-stats {
+            font-family: 'Coda Caption', sans-serif;
+            height: 45%;
+            max-width: 100%;
             color: white;
             font-size: 20px;
-            font-family: Arial, Helvetica, sans-serif;
-            background-color: aqua;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-left: 10px;
+        }
+
+        .stat-item {
+            text-align: center;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .stat-item p {
+            margin: 0;
+        }
+
+        .player-card-boost {
+            height: 25%;
+            max-width: 100%;
+            background-color: white;
+            font-family: 'Coda Caption', sans-serif;
+            font-size: 24px;
+        }
+
+        .boost-value {
+            height: 100%;
+            width: 33%;
+            background-color: gold;
+            color: black;
         }
     </style>
 </head>
 
 <body>
-    <div class="scorebug">
-        <table class="team-info">
-            <tr class="team-right">
-                <th class="name">Blue</th>
-                <th class="score">1</th>
-            </tr>
-            <tr class="team-left">
-                <th class="name">Red</th>
-                <th class="score">1</th>
-            </tr>
-        </table>
+
+    <div style="position: fixed; bottom: 50px; left: 50px;">
+        <div id="blue-card" class="player-card" style="display: none;">
+            <div id="blue-card-name" class="player-card-heading" style="background-color: #1167b1;">
+                Player Name
+            </div>
+            <div class="player-card-stats" style="background-color: #187bcd;">
+                <div class="stat-item">
+                    <p>Score</p>
+                    <p id="blue-card-score">100</p>
+                </div>
+                <div class="stat-item">
+                    <p>Goals</p>
+                    <p id="blue-card-goals">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Assists</p>
+                    <p id="blue-card-assists">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Saves</p>
+                    <p id="blue-card-saves">0</p>
+                </div>
+            </div>
+            <div class="player-card-boost">
+                <!-- <p style="margin: 0; position: absolute;">75</p> -->
+                <div id="blue-card-boost" class="boost-value">
+
+                </div>
+            </div>
+        </div>
+
+        <div id="orange-card" class="player-card" style="display: none;">
+            <div id="orange-card-name" class="player-card-heading" style="background-color: #D32F2F;">
+                Player Name
+            </div>
+            <div class="player-card-stats" style="background-color: #EF5350;">
+                <div class="stat-item">
+                    <p>Score</p>
+                    <p id="orange-card-score">100</p>
+                </div>
+                <div class="stat-item">
+                    <p>Goals</p>
+                    <p id="orange-card-goals">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Assists</p>
+                    <p id="orange-card-assists">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Saves</p>
+                    <p id="orange-card-saves">0</p>
+                </div>
+            </div>
+            <div class="player-card-boost">
+                <!-- <p style="margin: 0; position: absolute;">75</p> -->
+                <div id="orange-card-boost" class="boost-value">
+
+                </div>
+            </div>
+        </div>
     </div>
+
     <script>
         const WsSubscribers = {
             __subscribers: {},
@@ -41,10 +139,16 @@
                 debug = debug || false;
                 if (debug) {
                     if (debugFilters !== undefined) {
-                        console.warn("WebSocket Debug Mode enabled with filtering. Only events not in the filter list will be dumped");
+                        console.warn(
+                            "WebSocket Debug Mode enabled with filtering. Only events not in the filter list will be dumped"
+                        );
                     } else {
-                        console.warn("WebSocket Debug Mode enabled without filters applied. All events will be dumped to console");
-                        console.warn("To use filters, pass in an array of 'channel:event' strings to the second parameter of the init function");
+                        console.warn(
+                            "WebSocket Debug Mode enabled without filters applied. All events will be dumped to console"
+                        );
+                        console.warn(
+                            "To use filters, pass in an array of 'channel:event' strings to the second parameter of the init function"
+                        );
                     }
                 }
                 WsSubscribers.webSocket = new WebSocket("ws://localhost:" + port);
@@ -118,12 +222,14 @@
                 })
             },
             clearEventCallbacks: function (channel, event) {
-                if (WsSubscribers.__subscribers.hasOwnProperty(channel) && WsSubscribers.__subscribers[channel].hasOwnProperty(event)) {
+                if (WsSubscribers.__subscribers.hasOwnProperty(channel) && WsSubscribers.__subscribers[channel]
+                    .hasOwnProperty(event)) {
                     WsSubscribers.__subscribers[channel] = {};
                 }
             },
             triggerSubscribers: function (channel, event, data) {
-                if (WsSubscribers.__subscribers.hasOwnProperty(channel) && WsSubscribers.__subscribers[channel].hasOwnProperty(event)) {
+                if (WsSubscribers.__subscribers.hasOwnProperty(channel) && WsSubscribers.__subscribers[channel]
+                    .hasOwnProperty(event)) {
                     WsSubscribers.__subscribers[channel][event].forEach(function (callback) {
                         if (callback instanceof Function) {
                             callback(data);
@@ -156,11 +262,44 @@
         $(() => {
             WsSubscribers.init(49322, true);
             WsSubscribers.subscribe('game', 'update_state', (x) => {
-                $('.scorebug .team-left .score').text(x['game']['teams'][0]['score']);
-                $('.scorebug .team-right .score').text(x['game']['teams'][1]['score']);
+                //$('.scorebug .team-left .score').text(x['game']['teams'][0]['score']);
+                //$('.scorebug .team-right .score').text(x['game']['teams'][1]['score']);
+                updatePlayerCard(x);
             });
-        })
+        });
 
+        function updatePlayerCard(data) {
+            var playerName = data['game']['target'];
+
+            if (playerName === '') {
+                document.getElementById('blue-card').style.display = "none";
+                document.getElementById('orange-card').style.display = "none";
+            } else {
+                if (data['players'][playerName]['team'] == '0') {
+                    document.getElementById('blue-card').style.display = "block";
+                    document.getElementById('orange-card').style.display = "none";
+                    $('#blue-card-name').text(data['players'][playerName]['name']);
+                    $('#blue-card-score').text(data['players'][playerName]['score']);
+                    $('#blue-card-goals').text(data['players'][playerName]['goals']);
+                    $('#blue-card-assists').text(data['players'][playerName]['assists']);
+                    $('#blue-card-saves').text(data['players'][playerName]['saves']);
+                    document.getElementById('blue-card-boost').style.width = parseInt(data['players'][playerName][
+                        'boost'
+                    ]) + '%';
+                } else {
+                    document.getElementById('orange-card').style.display = "block";
+                    document.getElementById('blue-card').style.display = "none";
+                    $('#orange-card-name').text(data['players'][playerName]['name']);
+                    $('#orange-card-score').text(data['players'][playerName]['score']);
+                    $('#orange-card-goals').text(data['players'][playerName]['goals']);
+                    $('#orange-card-assists').text(data['players'][playerName]['assists']);
+                    $('#orange-card-saves').text(data['players'][playerName]['saves']);
+                    document.getElementById('orange-card-boost').style.width = parseInt(data['players'][playerName][
+                        'boost'
+                    ]) + '%';
+                }
+            }
+        }
     </script>
 </body>
 
