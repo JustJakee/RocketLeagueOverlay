@@ -64,12 +64,25 @@
     </style>
 </head>
 
-<body>
+<body style="background-color: black;">
     <!-- <video id="game-start-video" style="display: none;" height="100%" width="100%" id="game-start" autoplay muted>
         <source src="Intro.webm" type="video/webm">
     </video> -->
 
-    <div style="position: fixed; bottom: 50px; left: 50px;">
+    <div class="scoreboard" style="position: fixed; bottom: 50px; left: 50px;">
+        <img src="Scoreboard.png">
+        <p id="orange-score"
+            style="position: fixed; bottom:  62px; left: 394px; color: white; font-size: 64px; font-weight: bold;">0
+        </p>
+        <p id="blue-score"
+            style="position: fixed; bottom: -10px; left: 394px; color: white; font-size: 64px; font-weight: bold;">0
+        </p>
+        <p id="game-time"
+            style="position: fixed; bottom: 27px; left: 454px; color: black; font-size: 64px; font-weight: bold;">5:00
+        </p>
+    </div>
+
+    <div style="position: fixed; bottom: 50px; right: 50px;">
         <div id="blue-card" class="player-card" style="display: block;">
             <div id="blue-card-name" class="player-card-heading" style="background-color: #1167b1;">
                 Player Name
@@ -266,14 +279,16 @@
                 //$('.scorebug .team-left .score').text(x['game']['teams'][0]['score']);
                 //$('.scorebug .team-right .score').text(x['game']['teams'][1]['score']);
                 updatePlayerCard(x);
+                updateScore(x);
+                updateTime(x);
             });
             WsSubscribers.subscribe('game', 'goal_scored', (x) => {
-                console.log("Goal Scored!");
-                $('#game-start-video').get(0).currentTime = 0;
-                document.getElementById('game-start-video').style.display = "block";
-                setTimeout(function () {
-                    document.getElementById('game-start-video').style.display = "none";
-                }, 5500)
+                // console.log("Goal Scored!");
+                // $('#game-start-video').get(0).currentTime = 0;
+                // document.getElementById('game-start-video').style.display = "block";
+                // setTimeout(function () {
+                //     document.getElementById('game-start-video').style.display = "none";
+                // }, 5500)
             });
 
         });
@@ -318,7 +333,16 @@
             var minutesRemaining = timeInSecs / 60;
             var secondsRemaining = timeInSecs % 60;
 
-            return Math.floor(minutesRemaining) + ':' + secondsRemaining;;
+            $('#game-time').text(Math.floor(minutesRemaining) + ':' + secondsRemaining);
+        }
+
+        function updateScore(data) {
+            var blueScore = data['game']['teams']['0']['score'];
+            var redScore = data['game']['teams']['1']['score'];
+
+            // set score
+            $('#blue-score').text(blueScore);
+            $('#orange-score').text(redScore);
         }
     </script>
 </body>
