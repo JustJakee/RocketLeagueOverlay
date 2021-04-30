@@ -58,19 +58,19 @@
         .boost-value {
             height: 100%;
             width: 33%;
-            background-color: gold;
+            background-color: #f5be27;
             color: black;
         }
     </style>
 </head>
 
 <body>
-    <video id="game-start-video" style="display: none;" height="100%" width="100%" id="game-start" autoplay muted>
+    <!-- <video id="game-start-video" style="display: none;" height="100%" width="100%" id="game-start" autoplay muted>
         <source src="Intro.webm" type="video/webm">
-    </video>
+    </video> -->
 
     <div style="position: fixed; bottom: 50px; left: 50px;">
-        <div id="blue-card" class="player-card" style="display: none;">
+        <div id="blue-card" class="player-card" style="display: block;">
             <div id="blue-card-name" class="player-card-heading" style="background-color: #1167b1;">
                 Player Name
             </div>
@@ -93,9 +93,8 @@
                 </div>
             </div>
             <div class="player-card-boost">
-                <!-- <p style="margin: 0; position: absolute;">75</p> -->
-                <div id="blue-card-boost" class="boost-value">
-
+                <div id="blue-card-boost-vis" class="boost-value">
+                    <div id="blue-card-boost-num" style="position: absolute; left: 50%;">75</div>
                 </div>
             </div>
         </div>
@@ -123,9 +122,8 @@
                 </div>
             </div>
             <div class="player-card-boost">
-                <!-- <p style="margin: 0; position: absolute;">75</p> -->
-                <div id="orange-card-boost" class="boost-value">
-
+                <div id="orange-card-boost-vis" class="boost-value">
+                    <div id="orange-card-boost-num" style="position: absolute; left: 50%;">75</div>
                 </div>
             </div>
         </div>
@@ -295,9 +293,10 @@
                     $('#blue-card-goals').text(data['players'][playerName]['goals']);
                     $('#blue-card-assists').text(data['players'][playerName]['assists']);
                     $('#blue-card-saves').text(data['players'][playerName]['saves']);
-                    document.getElementById('blue-card-boost').style.width = parseInt(data['players'][playerName][
+                    document.getElementById('blue-card-boost-vis').style.width = parseInt(data['players'][playerName][
                         'boost'
                     ]) + '%';
+                    document.getElementById('blue-card-boost-num').text(data['players'][playerName]['boost']);
                 } else {
                     document.getElementById('orange-card').style.display = "block";
                     document.getElementById('blue-card').style.display = "none";
@@ -306,11 +305,20 @@
                     $('#orange-card-goals').text(data['players'][playerName]['goals']);
                     $('#orange-card-assists').text(data['players'][playerName]['assists']);
                     $('#orange-card-saves').text(data['players'][playerName]['saves']);
-                    document.getElementById('orange-card-boost').style.width = parseInt(data['players'][playerName][
+                    document.getElementById('orange-card-boost-vis').style.width = parseInt(data['players'][playerName][
                         'boost'
                     ]) + '%';
+                    document.getElementById('orange-card-boost-num').text(data['players'][playerName]['boost']);
                 }
             }
+        }
+
+        function updateTime(data) {
+            var timeInSecs = parseFloat(data['game']['time']);
+            var minutesRemaining = timeInSecs / 60;
+            var secondsRemaining = timeInSecs % 60;
+
+            return Math.floor(minutesRemaining) + ':' + secondsRemaining;;
         }
     </script>
 </body>
