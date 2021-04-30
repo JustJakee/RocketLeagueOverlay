@@ -332,7 +332,12 @@
             var minutesRemaining = timeInSecs / 60;
             var secondsRemaining = Math.floor(timeInSecs % 60)
 
-            $('#game-time').text(Math.floor(minutesRemaining) + ':' + secondsRemaining);
+            if (secondsRemaining < 10) {
+                $('#game-time').text(Math.floor(minutesRemaining) + ':0' + secondsRemaining);
+            } else {
+                $('#game-time').text(Math.floor(minutesRemaining) + ':' + secondsRemaining);
+            }
+
         }
 
         function updateScore(data) {
