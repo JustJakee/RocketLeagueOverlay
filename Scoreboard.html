@@ -310,7 +310,7 @@
                     document.getElementById('blue-card-boost-vis').style.width = parseInt(data['players'][playerName][
                         'boost'
                     ]) + '%';
-                    document.getElementById('blue-card-boost-num').text(data['players'][playerName]['boost']);
+                    //document.getElementById('blue-card-boost-num').text(data['players'][playerName]['boost']);
                 } else {
                     document.getElementById('orange-card').style.display = "block";
                     document.getElementById('blue-card').style.display = "none";
@@ -322,7 +322,7 @@
                     document.getElementById('orange-card-boost-vis').style.width = parseInt(data['players'][playerName][
                         'boost'
                     ]) + '%';
-                    document.getElementById('orange-card-boost-num').text(data['players'][playerName]['boost']);
+                    //document.getElementById('orange-card-boost-num').text(data['players'][playerName]['boost']);
                 }
             }
         }
@@ -330,7 +330,7 @@
         function updateTime(data) {
             var timeInSecs = parseFloat(data['game']['time']);
             var minutesRemaining = timeInSecs / 60;
-            var secondsRemaining = timeInSecs % 60;
+            var secondsRemaining = Math.floor(timeInSecs % 60)
 
             $('#game-time').text(Math.floor(minutesRemaining) + ':' + secondsRemaining);
         }
