@@ -65,6 +65,9 @@
 </head>
 
 <body>
+    <video id="game-start-video" style="display: none;" height="100%" width="100%" id="game-start" autoplay muted>
+        <source src="Intro.webm" type="video/webm">
+    </video>
 
     <div style="position: fixed; bottom: 50px; left: 50px;">
         <div id="blue-card" class="player-card" style="display: none;">
@@ -266,6 +269,15 @@
                 //$('.scorebug .team-right .score').text(x['game']['teams'][1]['score']);
                 updatePlayerCard(x);
             });
+            WsSubscribers.subscribe('game', 'goal_scored', (x) => {
+                console.log("Goal Scored!");
+                $('#game-start-video').get(0).currentTime = 0;
+                document.getElementById('game-start-video').style.display = "block";
+                setTimeout(function () {
+                    document.getElementById('game-start-video').style.display = "none";
+                }, 5500)
+            });
+
         });
 
         function updatePlayerCard(data) {
