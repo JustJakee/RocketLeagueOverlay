@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&display=swap');
+
+.player-card {
+    height: 150px;
+    width: 400px;
+}
+
+.player-card-heading {
+    font-family: 'Coda Caption', sans-serif;
+    height: 30%;
+    max-width: 100%;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-card-stats {
+    font-family: 'Coda Caption', sans-serif;
+    height: 45%;
+    max-width: 100%;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.stat-item {
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.stat-item p {
+    margin: 0;
+}
+
+.player-card-boost {
+    height: 25%;
+    max-width: 100%;
+    background-color: white;
+    font-family: 'Coda Caption', sans-serif;
+    font-size: 24px;
+}
+
+.boost-value {
+    height: 100%;
+    width: 33%;
+    background-color: #f5be27;
+    color: black;
+}
+
+.goal-test {
+    font-family: 'Coda Caption', sans-serif;
+    position: fixed;
+    bottom: 50px;
+    left: 50px;
+    height: 150px;
+    width: 0px;
+    background-color: #f5be27;
+    transition: width 1s;
+    overflow: hidden;
+    z-index: 2;
+    font-size: 126px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: black;
+}

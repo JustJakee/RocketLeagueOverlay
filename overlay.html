@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="scoreboard" style="position: fixed; bottom: 50px; left: 50px;">
+        <div id="slidetest" class="goal-test">
+            Goal!
+        </div>
+        <img src="Scoreboard.png">
+        <p id="orange-score"
+            style="position: fixed; bottom:  62px; left: 394px; color: white; font-size: 64px; font-weight: bold;">0
+        </p>
+        <p id="blue-score"
+            style="position: fixed; bottom: -10px; left: 394px; color: white; font-size: 64px; font-weight: bold;">0
+        </p>
+        <p id="game-time"
+            style="position: fixed; bottom: 27px; left: 454px; color: black; font-size: 64px; font-weight: bold;">5:00
+        </p>
+    </div>
+
+    <div style="position: fixed; bottom: 50px; right: 50px;">
+        <div id="blue-card" class="player-card" style="display: none;">
+            <div id="blue-card-name" class="player-card-heading" style="background-color: #1167b1;">
+                Player Name
+            </div>
+            <div class="player-card-stats" style="background-color: #187bcd;">
+                <div class="stat-item">
+                    <p>Score</p>
+                    <p id="blue-card-score">100</p>
+                </div>
+                <div class="stat-item">
+                    <p>Goals</p>
+                    <p id="blue-card-goals">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Assists</p>
+                    <p id="blue-card-assists">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Saves</p>
+                    <p id="blue-card-saves">0</p>
+                </div>
+            </div>
+            <div class="player-card-boost">
+                <div id="blue-card-boost-vis" class="boost-value"></div>
+            </div>
+        </div>
+
+        <div id="orange-card" class="player-card" style="display: none;">
+            <div id="orange-card-name" class="player-card-heading" style="background-color: #D32F2F;">
+                Player Name
+            </div>
+            <div class="player-card-stats" style="background-color: #EF5350;">
+                <div class="stat-item">
+                    <p>Score</p>
+                    <p id="orange-card-score">100</p>
+                </div>
+                <div class="stat-item">
+                    <p>Goals</p>
+                    <p id="orange-card-goals">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Assists</p>
+                    <p id="orange-card-assists">0</p>
+                </div>
+                <div class="stat-item">
+                    <p>Saves</p>
+                    <p id="orange-card-saves">0</p>
+                </div>
+            </div>
+            <div class="player-card-boost">
+                <div id="orange-card-boost-vis" class="boost-value"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="overlay.js"></script>
+</body>
+
+</html>
